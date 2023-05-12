@@ -1,0 +1,69 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block content_checkout %}
+     <div class="row" style="width: 100%;">
+		<div class="col-lg-6">
+			<div class="box-element form-mgl" id="form-wrapper">
+				<form id="form">
+					<div id="user-info">
+						<div class="form-field">
+							<input required class="form-control" type="text" name="name" placeholder="Nhập tên ...">
+						</div>
+						<div class="form-field">
+							<input required class="form-control" type="email" name="email" placeholder="Nhập Email...">
+						</div>
+					</div>
+					
+					<div id="shipping-info">
+						<hr>
+						<p><strong>Thông tin vận chuyển:</strong></p>
+						<hr>
+						<div class="form-field">
+							<input class="form-control" type="text" name="address" placeholder="Địa chỉ..">
+						</div>
+						<div class="form-field">
+							<input class="form-control" type="text" name="city" placeholder="Thành phố..">
+						</div>
+						<div class="form-field">
+							<input class="form-control" type="text" name="state" placeholder="Tình trạng..">
+						</div>
+						<div class="form-field">
+							<input class="form-control" type="text" name="zipcode" placeholder="Mã Bưu Chính..">
+						</div>
+						<div class="form-field">
+							<input class="form-control" type="text" name="country" placeholder="Mã Bưu Chính..">
+						</div>
+					</div>
+
+					<hr>
+					<input id="form-button" class="btn btn-success btn-block" type="submit" value="Tiếp Tục">
+				</form>
+			</div>
+
+			<br>
+			<div class="box-element hidden" id="payment-info">
+				<small>Paypal Options</small>
+			</div>
+			
+		</div>
+
+		<div class="col-lg-6">
+			<div class="box-element form-mgrb" >
+				<a  class="btn btn-outline-dark" href="{% url 'cart' %}">&#x2190; Giỏ Hàng</a>
+				<hr>
+				<p><strong>Đơn Hàng:</strong></p>
+				<hr>
+				{% for item in items %}
+				<div class="cart-row">
+					<div style="flex:2"><img class="row-image" src="{{item.product.ImageURL}}" ></div>
+					<div style="flex:2"><p>{{item.product.name}}</p></div>
+					<div style="flex:1"><p>${{item.product.price|floatformat:2}}</p></div>
+					<div style="flex:1"><p>x{{item.quantity}}</p></div>
+				</div>
+				{%endfor%}
+				<h6>Số đơn hàng:  {{order.get_cart_items}}</h6>
+				<h6>Tổng tiền:   ${{order.get_cart_total}}</h6>
+			</div>
+		</div>
+	</div>
+{% endblock content_checkout %}
